@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
     public Rigidbody2D projectile;
-    public float moveSpeed = 5.0f;
+    public float moveSpeed = 3.0f;
+    
     void Start()
     {
         projectile = this.gameObject.GetComponent<Rigidbody2D>();
