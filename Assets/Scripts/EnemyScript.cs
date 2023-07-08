@@ -18,8 +18,9 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         Bullet bullet = new Bullet(bulletSpeed, "enemy");
-        bulletSpawn = GetComponentInChildren<Transform>();
-        print(bulletSpawn);
+        //bulletSpawn = 
+        bulletSpawn = GetComponent<Transform>();
+        print(bulletSpawn.transform.position.x);
     }
 
     // Update is called once per frame
