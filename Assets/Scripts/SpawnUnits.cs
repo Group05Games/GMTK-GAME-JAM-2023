@@ -8,7 +8,7 @@ public class SpawnUnits : MonoBehaviour
     //true you can spawn.
     new bool WorldState = true;
     public GameObject ToSpawn;
-    public GameObject Cursor;
+    int WorldCounter;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +21,19 @@ public class SpawnUnits : MonoBehaviour
     {
         if(WorldState == true && Input.GetKeyDown(KeyCode.Space) == true)
         {
-            Instantiate(ToSpawn, Cursor.transform);
-
+            Instantiate(ToSpawn, this.transform.position, this.transform.rotation);
+            WorldState = false;
         }
 
-        
+        if (WorldState == true)
+        {
+            WorldCounter = Random.Range(1, 1000);
+
+            if (Rando <= 10)
+            {
+                Sleep = false;
+            }
+        }
+
     }
 }
