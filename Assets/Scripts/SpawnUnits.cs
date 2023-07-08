@@ -29,10 +29,11 @@ public class SpawnUnits : MonoBehaviour
         {
             WorldCounter = Random.Range(1, 1000);
 
-            if (Rando <= 10)
+            /*if (Rando <= 10)
             {
                 Sleep = false;
             }
+            */
         }
 
     }
