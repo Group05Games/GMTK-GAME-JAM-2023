@@ -7,14 +7,22 @@ public class WalletManager : MonoBehaviour
 {
     int holder = 0;
     public TMP_Text ScoreText;
+    public bool PorE;
 
     // Start is called before the first frame update
     Wallet wallet;
     void Start()
     {
-        //wallet = new Wallet();
-        wallet = new Wallet(1000);
-        Debug.Log("Hello from wallet " +  wallet.getScore());
+        if (PorE == false)
+        {
+            wallet = new Wallet();
+            Debug.Log("Hello from wallet " + wallet.getScore());
+        }
+        else if (PorE == true)
+        {
+            wallet = new Wallet(100);
+            Debug.Log("Hello from wallet " + wallet.getScore());
+        }
     }
 
     private void Update()
