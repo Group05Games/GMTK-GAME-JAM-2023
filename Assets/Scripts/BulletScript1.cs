@@ -22,11 +22,11 @@ public class BulletScript1 : MonoBehaviour
 
 	public void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.gameObject.name == "Bounding Box Bottom") {
-            print("delete bullet");
+            print("delete ally bullet");
             Destroy(this.gameObject);
 		}
         else {
-            print("hello");
+            print("hello from ally bullet");
 		}
     }
 }
