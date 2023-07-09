@@ -21,7 +21,7 @@ public class BulletScript : MonoBehaviour
     }
 
 	public void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.gameObject.name == "BoundingBoxTop") {
+		if (collision.gameObject.name == "Bounding Box Top") {
             print("delete bullet");
             Destroy(this.gameObject);
 		}

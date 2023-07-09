@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 1460541327}
   - component: {fileID: 1460541325}
   m_Layer: 0
-  m_Name: BoundingBoxTop
+  m_Name: Bounding Box Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
