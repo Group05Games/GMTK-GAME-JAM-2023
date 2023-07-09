@@ -193,4 +193,14 @@ public class UnitMoverBug3 : MonoBehaviour
     public void shoot() {
         Instantiate(bullet, bulletSpawn.position + new Vector3(0, -0.7f, 0), Quaternion.identity);
     }
+
+    public void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.name == "Bounding Box Bottom") {
+            print("delete ally bug 3");
+            Destroy(this.gameObject);
+        }
+        else {
+            print("hello from ally bug 3");
+        }
+    }
 }

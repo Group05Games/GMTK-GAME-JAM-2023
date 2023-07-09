@@ -161,4 +161,14 @@ public class UnitMover : MonoBehaviour
         Debug.Log("Move Down");
         this.transform.position = transform.position + new Vector3(0, 30 * -moveSpeed * Time.deltaTime, 0);
     }
+
+    public void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.name == "Bounding Box Bottom") {
+            print("delete ally bug 1");
+            Destroy(this.gameObject);
+        }
+        else {
+            print("hello from ally bug 1");
+        }
+    }
 }
