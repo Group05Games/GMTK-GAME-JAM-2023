@@ -7,20 +7,16 @@ using UnityEngine;
 public class BulletScript1 : MonoBehaviour
 {
     private Rigidbody2D projectile;
-    private WalletManager EnemyWallet;
     public float moveSpeed = 3.0f;
     
     void Start()
     {
         projectile = this.gameObject.GetComponent<Rigidbody2D>();
-        EnemyWallet = GameObject.Find("EnemyScore").gameObject.GetComponent<WalletManager>();
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        float y = this.transform.position.y;
         projectile.velocity = new Vector2(0, -1) * moveSpeed;
     }
 

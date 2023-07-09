@@ -26,7 +26,7 @@ public class UnitMoverBug3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        bulletSpawn = this.gameObject.transform;
     }
 
     // Update is called once per frame
@@ -190,20 +190,7 @@ public class UnitMoverBug3 : MonoBehaviour
         }
     }
 
-    public void shoot()
-    {
-        currentTime += Time.deltaTime;
-
-        if (currentTime > nextFire)
-        {
-            nextFire += currentTime;
-
-            Instantiate(bullet, -(bulletSpawn.position + new Vector3(0, 0.7f, 0)), Quaternion.identity);
-
-            nextFire -= currentTime;
-            currentTime = 0.0f;
-
-            nextFire = Random.Range(1.5f, 3.0f);
-        }
+    public void shoot() {
+        Instantiate(bullet, bulletSpawn.position + new Vector3(0, -0.7f, 0), Quaternion.identity);
     }
 }
