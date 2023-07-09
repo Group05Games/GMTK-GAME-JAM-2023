@@ -8,7 +8,8 @@ public class SpawnUnits : MonoBehaviour
     //true you can spawn.
     new bool WorldState = true;
     public GameObject ToSpawn;
-    int WorldCounter;
+    public float WorldTime = 0.0f;
+    public float nextSpawn = 5.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +26,18 @@ public class SpawnUnits : MonoBehaviour
             WorldState = false;
         }
 
-        if (WorldState == true)
+        if (WorldState == false)
         {
-            WorldCounter = Random.Range(1, 1000);
+            WorldTime += Time.deltaTime;
 
-            /*if (Rando <= 10)
+            if (WorldTime > nextSpawn)
             {
-                Sleep = false;
+                nextSpawn += WorldTime;
+
+                nextSpawn -= WorldTime;
+                WorldTime = 0.0f;
+                WorldState = true;
             }
-            */
         }
 
     }

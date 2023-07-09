@@ -16,6 +16,8 @@ public class UnitMover : MonoBehaviour
     float ISeeRight;
     float ISeeLeft;
 
+    int layerMask = 1 << 8;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,13 +67,13 @@ public class UnitMover : MonoBehaviour
                 {
                     MovingRight = false;
                     Moving = false;
-                    MoveDown();
+                    MoveDownRight();
                 }
                 if (ISeeLeft < 0.03f)
                 {
                     MovingLeft = false;
                     Moving = false;
-                    MoveDown();
+                    MoveDownLeft();
                 }
             }
 
@@ -84,18 +86,18 @@ public class UnitMover : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity, layerMask))
         {
             ISeeRight = Mathf.Abs(hit.distance);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.yellow);
             return ISeeRight;
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.yellow);
         }
         else
         {
             ISeeRight = Mathf.Infinity;
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * 1000, Color.white);
+            Debug.Log("Did not Hit Right");
             return ISeeRight;
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * 1000, Color.white);
-            //Debug.Log("Did not Hit Right");
         }
     }
 
@@ -103,18 +105,18 @@ public class UnitMover : MonoBehaviour
     {
         RaycastHit hit2;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit2, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit2, Mathf.Infinity, layerMask))
         {
             ISeeLeft = Mathf.Abs(hit2.distance);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit2.distance, Color.yellow);
             return ISeeLeft;
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit2.distance, Color.yellow);
         }
         else
         {
             ISeeLeft = Mathf.Infinity;
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 1000, Color.white);
+            Debug.Log("Did not Hit Left");
             return ISeeLeft;
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 1000, Color.white);
-            //Debug.Log("Did not Hit Left");
         }
     }
 
@@ -150,7 +152,12 @@ public class UnitMover : MonoBehaviour
         this.transform.position = transform.position + new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
     }
 
-    void MoveDown()
+    void MoveDownRight()
+    {
+        Debug.Log("Move Down");
+        this.transform.position = transform.position + new Vector3(0, 30 * -moveSpeed * Time.deltaTime, 0);
+    }
+    void MoveDownLeft()
     {
         Debug.Log("Move Down");
         this.transform.position = transform.position + new Vector3(0, 30 * -moveSpeed * Time.deltaTime, 0);

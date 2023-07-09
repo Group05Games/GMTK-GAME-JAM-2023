@@ -12,6 +12,19 @@ public class EnemyScript : MonoBehaviour
     public float nextFire = 1.0f;
     public float currentTime = 0.0f;
 
+    bool Moving = false;
+    bool MovingLeft = false;
+    bool MovingRight = false;
+
+    public float moveSpeed = 1.5f;
+
+    float ISeeRight;
+    float ISeeLeft;
+
+    int layerMask = 1 << 8;
+
+    float MoveRando = .03f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +36,43 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update() {
         shoot();
+
+        LookRight();
+        //Debug.Log("Right: " + ISeeRight);
+        LookLeft();
+        //Debug.Log("Left: " + ISeeLeft);
+
+        Debug.Log(MoveRando);
+
+        if (Moving == false)
+        {
+            CheckDirection();
+        }
+
+        if (Moving == true)
+        {
+            if (MovingRight == true)
+            {
+                MoveRight();
+            }
+            if (MovingLeft == true)
+            {
+                MoveLeft();
+            }
+
+            if (ISeeRight < MoveRando)
+            {
+                MovingRight = false;
+                Moving = false;
+            }
+            if (ISeeLeft < MoveRando)
+            {
+                MovingLeft = false;
+                Moving = false;
+            }
+        }
+
+
     }
 
     public void shoot() {
@@ -31,10 +81,85 @@ public class EnemyScript : MonoBehaviour
         if (currentTime > nextFire) {
             nextFire += currentTime;
 
-            Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
+            Instantiate(bullet, bulletSpawn.position + new Vector3(0, 0.7f, 0), Quaternion.identity);
 
             nextFire -= currentTime;
             currentTime = 0.0f;
+
+            MoveRando = Random.Range(0.03f, 1.0f);
+            nextFire = Random.Range(1, 3);
 		}
 	}
+
+
+    float LookRight()
+{
+    RaycastHit hit;
+
+    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity, layerMask))
+    {
+        ISeeRight = Mathf.Abs(hit.distance);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.yellow);
+        return ISeeRight;
+    }
+    else
+    {
+        ISeeRight = Mathf.Infinity;
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * 1000, Color.white);
+        Debug.Log("Did not Hit Right");
+        return ISeeRight;
+    }
+}
+
+float LookLeft()
+{
+    RaycastHit hit2;
+
+    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit2, Mathf.Infinity, layerMask))
+    {
+        ISeeLeft = Mathf.Abs(hit2.distance);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit2.distance, Color.yellow);
+        return ISeeLeft;
+    }
+    else
+    {
+        ISeeLeft = Mathf.Infinity;
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 1000, Color.white);
+        Debug.Log("Did not Hit Left");
+        return ISeeLeft;
+    }
+}
+
+void CheckDirection()
+{
+    if (ISeeRight > ISeeLeft && MovingLeft == false)
+    {
+        Debug.Log("Moving Right");
+        MovingRight = true;
+        Moving = true;
+    }
+
+    if (ISeeLeft > ISeeRight && MovingRight == false)
+    {
+        Debug.Log("Moving Left");
+        MovingLeft = true;
+        Moving = true;
+    }
+}
+
+
+void MoveRight()
+{
+    Debug.Log("Move Right");
+    MovingRight = true;
+    this.transform.position = transform.position + new Vector3(moveSpeed * Time.deltaTime, 0, 0);
+}
+
+void MoveLeft()
+{
+    Debug.Log("Move Left");
+    MovingLeft = true;
+    this.transform.position = transform.position + new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+}
+
 }
