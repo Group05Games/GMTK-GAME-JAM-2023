@@ -35,8 +35,8 @@ public class BulletScript : MonoBehaviour
     }
 
 	public void OnTriggerEnter2D(Collider2D collision) {
-		if (collision.gameObject.name == "Legaly Distinct") {
-            print("delete Bat");
+		if (collision.gameObject.name == "Bug 1(Clone)") {
+            print("delete Spider");
 
             EnemyWallet.addScore(10);
             print("Test "+ EnemyWallet.getScore());
@@ -44,8 +44,8 @@ public class BulletScript : MonoBehaviour
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.name == "Legaly Distinct 2") {
-            print("delete Bee");
+        else if (collision.gameObject.name == "Bug 2(Clone)") {
+            print("delete Bat");
 
             EnemyWallet.addScore(50);
             print("Test "+ EnemyWallet.getScore());
@@ -53,8 +53,8 @@ public class BulletScript : MonoBehaviour
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.name == "Legaly Distinct 3") {
-            print("delete Sonic");
+        else if (collision.gameObject.name == "Bug 3(Clone)") {
+            print("delete Sonic.Plane.Speed");
 
             EnemyWallet.addScore(100);
             print("Test "+ EnemyWallet.getScore());

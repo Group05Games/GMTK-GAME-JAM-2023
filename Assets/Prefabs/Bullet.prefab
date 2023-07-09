@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6510136694329452352}
   - component: {fileID: 6510136694329452353}
-  - component: {fileID: 6510136694329452354}
+  - component: {fileID: 2967250052846625752}
   - component: {fileID: 6510136694329452359}
   - component: {fileID: -7158144514417516523}
   m_Layer: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6510136694329452354
+--- !u!114 &2967250052846625752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f99765b94ed09648a15f20b2feecf0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
   moveSpeed: 10
 --- !u!50 &6510136694329452359
 Rigidbody2D:

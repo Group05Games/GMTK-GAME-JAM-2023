@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6510136694329452352}
   - component: {fileID: 6510136694329452353}
-  - component: {fileID: 6510136694329452354}
+  - component: {fileID: 5074134840363938268}
   - component: {fileID: 6510136694329452359}
   m_Layer: 0
   m_Name: Bullet 1
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6510136694329452354
+--- !u!114 &5074134840363938268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,10 +95,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6510136694329452355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f99765b94ed09648a15f20b2feecf0f, type: 3}
+  m_Script: {fileID: 11500000, guid: dc1e919235adbc845b93877ff9bd391a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
   moveSpeed: 10
 --- !u!50 &6510136694329452359
 Rigidbody2D:

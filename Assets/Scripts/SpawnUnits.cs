@@ -12,7 +12,7 @@ public class SpawnUnits : MonoBehaviour
     public GameObject Spawn;
     public float WorldTime = 0.0f;
     public float WorldTime2 = 0.0f;
-    public float nextSpawn = 5.0f;
+    public float nextSpawn = 0.5f;
     public float nextSpawn2 = 1.0f;
 
     [SerializeField]
