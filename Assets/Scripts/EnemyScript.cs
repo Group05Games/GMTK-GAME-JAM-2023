@@ -92,20 +92,20 @@ public class EnemyScript : MonoBehaviour
 	}
 
 
-    float LookRight()
+float LookRight()
 {
     RaycastHit hit;
 
     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity, layerMask))
     {
         ISeeRight = Mathf.Abs(hit.distance);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.yellow);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.magenta);
         return ISeeRight;
     }
     else
     {
         ISeeRight = Mathf.Infinity;
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * 1000, Color.white);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * 1000, Color.green);
         Debug.Log("Did not Hit Right");
         return ISeeRight;
     }
@@ -118,13 +118,13 @@ float LookLeft()
     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit2, Mathf.Infinity, layerMask))
     {
         ISeeLeft = Mathf.Abs(hit2.distance);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit2.distance, Color.yellow);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit2.distance, Color.magenta);
         return ISeeLeft;
     }
     else
     {
         ISeeLeft = Mathf.Infinity;
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 1000, Color.white);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 1000, Color.green);
         Debug.Log("Did not Hit Left");
         return ISeeLeft;
     }

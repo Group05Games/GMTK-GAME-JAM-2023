@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitMover : MonoBehaviour
+public class UnitMoverBug3 : MonoBehaviour
 {
     int Rando;
     bool Sleep = true;
@@ -11,6 +11,12 @@ public class UnitMover : MonoBehaviour
     bool MovingRight = false;
 
     public float moveSpeed = 1;
+    public float diagSpeed = 1;
+
+    public Transform bulletSpawn;
+    public GameObject bullet;
+    public float nextFire = 3.0f;
+    public float currentTime = 0.0f;
 
     float ISeeRight;
     float ISeeLeft;
@@ -34,6 +40,8 @@ public class UnitMover : MonoBehaviour
             if (Rando <= 10)
             {
                 Sleep = false;
+                //Add Bullet Firerer
+                shoot();
             }
         }
 
@@ -66,13 +74,13 @@ public class UnitMover : MonoBehaviour
                 {
                     MovingRight = false;
                     Moving = false;
-                    MoveDownRight();
+                    MoveDownLeft();
                 }
                 if (ISeeLeft < 0.03f)
                 {
                     MovingLeft = false;
                     Moving = false;
-                    MoveDownLeft();
+                    MoveDownRight();
                 }
             }
 
@@ -83,12 +91,12 @@ public class UnitMover : MonoBehaviour
 
     float LookRight()
     {
-        RaycastHit hit;
+        RaycastHit hit5;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit5, Mathf.Infinity, layerMask))
         {
-            ISeeRight = Mathf.Abs(hit.distance);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.yellow);
+            ISeeRight = Mathf.Abs(hit5.distance);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit5.distance, Color.yellow);
             return ISeeRight;
         }
         else
@@ -102,12 +110,12 @@ public class UnitMover : MonoBehaviour
 
     float LookLeft()
     {
-        RaycastHit hit2;
+        RaycastHit hit6;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit2, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit6, Mathf.Infinity, layerMask))
         {
-            ISeeLeft = Mathf.Abs(hit2.distance);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit2.distance, Color.yellow);
+            ISeeLeft = Mathf.Abs(hit6.distance);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit6.distance, Color.yellow);
             return ISeeLeft;
         }
         else
@@ -141,24 +149,61 @@ public class UnitMover : MonoBehaviour
     {
         Debug.Log("Move Right");
         MovingRight = true;
-        this.transform.position = transform.position + new Vector3(moveSpeed * Time.deltaTime, 0, 0);   
+        this.transform.position = transform.position + new Vector3(moveSpeed * Time.deltaTime, diagSpeed * -moveSpeed * Time.deltaTime, 0);
+        Rando = Random.Range(1, 1000);
+        if (Rando == 1)
+        {
+            Sleep = true;
+        }
     }
 
     void MoveLeft()
     {
         Debug.Log("Move Left");
         MovingLeft = true;
-        this.transform.position = transform.position + new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+        this.transform.position = transform.position + new Vector3(-moveSpeed * Time.deltaTime, diagSpeed * -moveSpeed * Time.deltaTime, 0);
+        Rando = Random.Range(1, 1000);
+        if (Rando == 1)
+        {
+            Sleep = true;
+        }
     }
 
     void MoveDownRight()
     {
         Debug.Log("Move Down");
-        this.transform.position = transform.position + new Vector3(0, 30 * -moveSpeed * Time.deltaTime, 0);
+        this.transform.position = transform.position + new Vector3(0, 10 * -moveSpeed * Time.deltaTime, 0);
+        Rando = Random.Range(1, 1000);
+        if (Rando == 1)
+        {
+            Sleep = true;
+        }
     }
     void MoveDownLeft()
     {
         Debug.Log("Move Down");
-        this.transform.position = transform.position + new Vector3(0, 30 * -moveSpeed * Time.deltaTime, 0);
+        this.transform.position = transform.position + new Vector3(0, 10 * -moveSpeed * Time.deltaTime, 0);
+        Rando = Random.Range(1, 1000);
+        if (Rando == 1)
+        {
+            Sleep = true;
+        }
+    }
+
+    public void shoot()
+    {
+        currentTime += Time.deltaTime;
+
+        if (currentTime > nextFire)
+        {
+            nextFire += currentTime;
+
+            Instantiate(bullet, -(bulletSpawn.position + new Vector3(0, 0.7f, 0)), Quaternion.identity);
+
+            nextFire -= currentTime;
+            currentTime = 0.0f;
+
+            nextFire = Random.Range(1.5f, 3.0f);
+        }
     }
 }

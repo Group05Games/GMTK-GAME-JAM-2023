@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitMover : MonoBehaviour
+public class UnitMoverBug2 : MonoBehaviour
 {
     int Rando;
     bool Sleep = true;
@@ -11,6 +11,7 @@ public class UnitMover : MonoBehaviour
     bool MovingRight = false;
 
     public float moveSpeed = 1;
+    public float diagSpeed = 1;
 
     float ISeeRight;
     float ISeeLeft;
@@ -66,13 +67,13 @@ public class UnitMover : MonoBehaviour
                 {
                     MovingRight = false;
                     Moving = false;
-                    MoveDownRight();
+                    MoveDownLeft();
                 }
                 if (ISeeLeft < 0.03f)
                 {
                     MovingLeft = false;
                     Moving = false;
-                    MoveDownLeft();
+                    MoveDownRight();
                 }
             }
 
@@ -83,12 +84,12 @@ public class UnitMover : MonoBehaviour
 
     float LookRight()
     {
-        RaycastHit hit;
+        RaycastHit hit3;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit3, Mathf.Infinity, layerMask))
         {
-            ISeeRight = Mathf.Abs(hit.distance);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit.distance, Color.yellow);
+            ISeeRight = Mathf.Abs(hit3.distance);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * hit3.distance, Color.yellow);
             return ISeeRight;
         }
         else
@@ -102,12 +103,12 @@ public class UnitMover : MonoBehaviour
 
     float LookLeft()
     {
-        RaycastHit hit2;
+        RaycastHit hit4;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit2, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit4, Mathf.Infinity, layerMask))
         {
-            ISeeLeft = Mathf.Abs(hit2.distance);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit2.distance, Color.yellow);
+            ISeeLeft = Mathf.Abs(hit4.distance);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * hit4.distance, Color.yellow);
             return ISeeLeft;
         }
         else
@@ -141,24 +142,24 @@ public class UnitMover : MonoBehaviour
     {
         Debug.Log("Move Right");
         MovingRight = true;
-        this.transform.position = transform.position + new Vector3(moveSpeed * Time.deltaTime, 0, 0);   
+        this.transform.position = transform.position + new Vector3(moveSpeed * Time.deltaTime, diagSpeed * -moveSpeed * Time.deltaTime, 0);   
     }
 
     void MoveLeft()
     {
         Debug.Log("Move Left");
         MovingLeft = true;
-        this.transform.position = transform.position + new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+        this.transform.position = transform.position + new Vector3(-moveSpeed * Time.deltaTime, diagSpeed * -moveSpeed * Time.deltaTime, 0);
     }
 
     void MoveDownRight()
     {
         Debug.Log("Move Down");
-        this.transform.position = transform.position + new Vector3(0, 30 * -moveSpeed * Time.deltaTime, 0);
+        this.transform.position = transform.position + new Vector3(0, 10 * -moveSpeed * Time.deltaTime, 0);
     }
     void MoveDownLeft()
     {
         Debug.Log("Move Down");
-        this.transform.position = transform.position + new Vector3(0, 30 * -moveSpeed * Time.deltaTime, 0);
+        this.transform.position = transform.position + new Vector3(0, 10 * -moveSpeed * Time.deltaTime, 0);
     }
 }
