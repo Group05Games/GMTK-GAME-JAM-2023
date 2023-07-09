@@ -102,6 +102,13 @@ MonoBehaviour:
   bullet: {fileID: 6510136694329452355, guid: 1cf9d2775fe4e2f48afdeb9143e1b669, type: 3}
   nextFire: 1
   currentTime: 0
+  moveSpeed: 1.5
+  nextScore: 1
+  currentTimeScore: 0
+  LifeCounter: 3
+  Life1: {fileID: 0}
+  Life2: {fileID: 0}
+  WinScreen: {fileID: 0}
 --- !u!61 &7838008351442709159
 BoxCollider2D:
   m_ObjectHideFlags: 0

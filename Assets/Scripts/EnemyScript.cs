@@ -32,6 +32,7 @@ public class EnemyScript : MonoBehaviour
     public int LifeCounter = 3;
     public GameObject Life1;
     public GameObject Life2;
+    public GameObject WinScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,8 @@ public class EnemyScript : MonoBehaviour
         //print(bulletSpawn.transform.position.x);
 
         EnemyWallet = GameObject.Find("EnemyScore").gameObject.GetComponent<WalletManager>();
+        WinScreen = FindObjectOfType<RestartScene>(true).gameObject;
+        Debug.Log(WinScreen.ToString());
     }
 
     // Update is called once per frame
@@ -202,6 +205,7 @@ public void MoneyGen()
             else if(LifeCounter == 0)
             {
                 Debug.Log("You Win");
+                WinScreen.SetActive(true);
                 Destroy(this.gameObject);
             }
             
