@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpawnUnits : MonoBehaviour
 {
@@ -19,12 +20,21 @@ public class SpawnUnits : MonoBehaviour
     public GameObject[] MobsPrefabs;
 
     GameObject ButtonPressed;
+    GameObject ErrorMessage;
+
+    private WalletManager PlayerWallet;
+    public float nextFire = 1.0f;
+    public float currentTime = 0.0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         UnitSelector Selector = this.GetComponent<UnitSelector>();
         ButtonPressed = GameObject.Find("Button Unpressed");
+        ErrorMessage = GameObject.Find("Error");
+
+        PlayerWallet = GameObject.Find("PlayerScore").gameObject.GetComponent<WalletManager>();
     }
 
     // Update is called once per frame
@@ -34,13 +44,53 @@ public class SpawnUnits : MonoBehaviour
         {
             Debug.Log("Spawner Counter: " + UnitSelector.Counter + " : " + MobsPrefabs[UnitSelector.Counter]);
             ToSpawn = MobsPrefabs[UnitSelector.Counter];
-            Instantiate(ToSpawn, this.transform.position, this.transform.rotation);
+            if (UnitSelector.Counter == 0)
+            {
+                if (PlayerWallet.getScore() >= 10)
+                {
+                    PlayerWallet.subtractScore(10);
+                    Instantiate(ToSpawn, this.transform.position, this.transform.rotation);
+                }
+                else
+                {
+                    ErrorMessage.SetActive(true);
+                }
+            }
+            else if (UnitSelector.Counter == 1)
+            {
+                if (PlayerWallet.getScore() >= 50)
+                {
+                    PlayerWallet.subtractScore(50);
+                    Instantiate(ToSpawn, this.transform.position, this.transform.rotation);
+                }
+                else
+                {
+                    ErrorMessage.SetActive(true);
+                }
+            }
+            else if (UnitSelector.Counter == 2)
+            {
+                if (PlayerWallet.getScore() >= 100)
+                {
+                    PlayerWallet.subtractScore(100);
+                    Instantiate(ToSpawn, this.transform.position, this.transform.rotation);
+                }
+                else
+                {
+                    ErrorMessage.SetActive(true);
+                }
+            }
+
+
+
             WorldState = false;
         }
 
         if (WorldState2 == true && Input.GetKeyDown(KeyCode.Space) == true && UnitSelector.Counter == 3)
         {
             Debug.Log("Money.Wav");
+            PlayerWallet.addScore(5);
+            print("Test " + PlayerWallet.getScore());
             WorldState2 = false;
         }
 
@@ -74,5 +124,47 @@ public class SpawnUnits : MonoBehaviour
             }
         }
 
+        
+        MoneyGen();
+
+    }
+
+    public void MoneyGen()
+    {   
+        currentTime += Time.deltaTime;
+
+        if (currentTime > nextFire)
+        {
+            nextFire += currentTime;
+
+            nextFire -= currentTime;
+            currentTime = 0.0f;
+            ErrorMessage.SetActive(false);
+            PlayerWallet.addScore(1 + GetMoneyMod());
+        }
+    }
+
+    public int GetMoneyMod()
+    {
+        int MoneyMod = 0;
+
+        if (PlayerWallet.getScore() < 100 )
+        {
+            MoneyMod = 1;
+        }
+        else if (PlayerWallet.getScore() >= 100 && PlayerWallet.getScore() < 200)
+        {
+            MoneyMod = 2;
+        }
+        else if (PlayerWallet.getScore() >= 200 && PlayerWallet.getScore() < 300)
+        {
+            MoneyMod = 3;
+        }
+        else if (PlayerWallet.getScore() >= 300)
+        {
+            MoneyMod = 4;
+        }
+
+        return MoneyMod;
     }
 }

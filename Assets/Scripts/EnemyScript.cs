@@ -25,12 +25,18 @@ public class EnemyScript : MonoBehaviour
 
     float MoveRando = .03f;
 
+    private WalletManager EnemyWallet;
+    public float nextScore = 1.0f;
+    public float currentTimeScore = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         //Bullet bullet = new Bullet(bulletSpeed, "enemy");
         bulletSpawn = this.gameObject.transform;
         //print(bulletSpawn.transform.position.x);
+
+        EnemyWallet = GameObject.Find("EnemyScore").gameObject.GetComponent<WalletManager>();
     }
 
     // Update is called once per frame
@@ -72,7 +78,7 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
-
+        MoneyGen();
     }
 
     public void shoot() {
@@ -160,6 +166,20 @@ void MoveLeft()
     Debug.Log("Move Left");
     MovingLeft = true;
     this.transform.position = transform.position + new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+}
+
+public void MoneyGen()
+{
+    currentTimeScore += Time.deltaTime;
+
+    if (currentTimeScore > nextScore)
+    {
+        nextScore += currentTimeScore;
+
+        nextScore -= currentTimeScore;
+        currentTimeScore = 0.0f;
+        EnemyWallet.addScore(1);
+    }
 }
 
 }
