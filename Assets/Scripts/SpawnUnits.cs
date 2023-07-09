@@ -26,6 +26,9 @@ public class SpawnUnits : MonoBehaviour
     public float nextFire = 1.0f;
     public float currentTime = 0.0f;
 
+    public AudioSource audioSource;
+    public AudioClip MoneyClip;
+
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +94,7 @@ public class SpawnUnits : MonoBehaviour
         if (WorldState2 == true && Input.GetKeyDown(KeyCode.Space) == true && UnitSelector.Counter == 3)
         {
             Debug.Log("Money.Wav");
+            audioSource.PlayOneShot(MoneyClip);
             PlayerWallet.addScore(5);
             print("Test " + PlayerWallet.getScore());
             WorldState2 = false;

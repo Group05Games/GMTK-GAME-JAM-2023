@@ -8,10 +8,15 @@ public class BulletScript1 : MonoBehaviour
 {
     private Rigidbody2D projectile;
     public float moveSpeed = 3.0f;
-    
+
+    [Serialize]
+    public AudioSource audioSource;
+    public AudioClip ShootClip2;
+
     void Start()
     {
         projectile = this.gameObject.GetComponent<Rigidbody2D>();
+        audioSource.PlayOneShot(ShootClip2);
     }
 
     // Update is called once per frame

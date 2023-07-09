@@ -9,12 +9,19 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D projectile;
     private WalletManager EnemyWallet;
     public float moveSpeed = 3.0f;
-    
+
+    [Serialize]
+    public AudioSource audioSource;
+    public AudioClip ShootClip;
+    public AudioSource audioSource2;
+    public AudioClip ShootClip2;
+
     void Start()
     {
         projectile = this.gameObject.GetComponent<Rigidbody2D>();
         EnemyWallet = GameObject.Find("EnemyScore").gameObject.GetComponent<WalletManager>();
-        
+        audioSource.PlayOneShot(ShootClip);
+
     }
 
     // Update is called once per frame
@@ -30,9 +37,15 @@ public class BulletScript : MonoBehaviour
             Destroy(this.gameObject);
 		}
         else if (collision.gameObject.name == "Cursor") {
+            SoundEffect();
+            EnemyWallet.addScore(50);
+            if (EnemyWallet.getScore() != -1000)
+            {
+                Debug.Log("We did it Space Partner");
+            }
             print("Hit Cursor");
             Destroy(this.gameObject);
-            EnemyWallet.addScore(50);
+            
         }
         else {
             print("hello");
@@ -71,4 +84,9 @@ public class BulletScript : MonoBehaviour
             print("hello 2");
 		}
 	}
+
+    void SoundEffect()
+    {
+        audioSource2.PlayOneShot(ShootClip2);
+    }
 }

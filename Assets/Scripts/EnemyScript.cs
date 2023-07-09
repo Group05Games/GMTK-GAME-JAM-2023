@@ -34,6 +34,9 @@ public class EnemyScript : MonoBehaviour
     public GameObject Life2;
     public GameObject WinScreen;
 
+    public AudioSource audioSource;
+    public AudioClip ShootClip3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -194,7 +197,8 @@ public void MoneyGen()
         if (collision.gameObject.name != "Enemy" && collision.gameObject.name != "Bullet(Clone)")
         {
             LifeCounter--;
-            if(LifeCounter == 2)
+            audioSource.PlayOneShot(ShootClip3);
+            if (LifeCounter == 2)
             {
                 Life2.SetActive(false);
             }
