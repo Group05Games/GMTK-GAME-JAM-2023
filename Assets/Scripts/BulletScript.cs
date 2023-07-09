@@ -29,6 +29,11 @@ public class BulletScript : MonoBehaviour
             print("delete bullet");
             Destroy(this.gameObject);
 		}
+        else if (collision.gameObject.name == "Cursor") {
+            print("Hit Cursor");
+            Destroy(this.gameObject);
+            EnemyWallet.addScore(50);
+        }
         else {
             print("hello");
 		}
