@@ -12,7 +12,8 @@ public class WalletManager : MonoBehaviour
     Wallet wallet;
     void Start()
     {
-        wallet = new Wallet();
+        //wallet = new Wallet();
+        wallet = new Wallet(1000);
         Debug.Log("Hello from wallet " +  wallet.getScore());
     }
 

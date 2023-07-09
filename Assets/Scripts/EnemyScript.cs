@@ -29,6 +29,10 @@ public class EnemyScript : MonoBehaviour
     public float nextScore = 1.0f;
     public float currentTimeScore = 0.0f;
 
+    public int LifeCounter = 3;
+    public GameObject Life1;
+    public GameObject Life2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -182,4 +186,30 @@ public void MoneyGen()
     }
 }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name != "Enemy" && collision.gameObject.name != "Bullet(Clone)")
+        {
+            LifeCounter--;
+            if(LifeCounter == 2)
+            {
+                Life2.SetActive(false);
+            }
+            else if(LifeCounter == 1)
+            {
+                Life1.SetActive(false);
+            }
+            else if(LifeCounter == 0)
+            {
+                Debug.Log("You Win");
+                Destroy(this.gameObject);
+            }
+            
+            Destroy(collision.gameObject);
+        }
+        else
+        {
+            print("Crash");
+        }
+    }
 }

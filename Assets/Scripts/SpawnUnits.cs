@@ -20,7 +20,7 @@ public class SpawnUnits : MonoBehaviour
     public GameObject[] MobsPrefabs;
 
     GameObject ButtonPressed;
-    GameObject ErrorMessage;
+    public GameObject ErrorMessage;
 
     private WalletManager PlayerWallet;
     public float nextFire = 1.0f;
@@ -32,7 +32,6 @@ public class SpawnUnits : MonoBehaviour
     {
         UnitSelector Selector = this.GetComponent<UnitSelector>();
         ButtonPressed = GameObject.Find("Button Unpressed");
-        ErrorMessage = GameObject.Find("Error");
 
         PlayerWallet = GameObject.Find("PlayerScore").gameObject.GetComponent<WalletManager>();
     }
@@ -53,6 +52,7 @@ public class SpawnUnits : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Failure to Spawn 10 Cost");
                     ErrorMessage.SetActive(true);
                 }
             }
@@ -65,6 +65,7 @@ public class SpawnUnits : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Failure to Spawn 50 Cost");
                     ErrorMessage.SetActive(true);
                 }
             }
@@ -77,6 +78,7 @@ public class SpawnUnits : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Failure to Spawn 100 Cost");
                     ErrorMessage.SetActive(true);
                 }
             }

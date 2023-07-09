@@ -29,18 +29,4 @@ public class BulletScript1 : MonoBehaviour
             print("hello");
 		}
     }
-
-	public void OnTriggerEnter2D(Collider2D collision) {
-		if (collision.gameObject.name == "Enemy") {
-            print("delete Enemy");
-
-            print("You Win");
-
-            Destroy(this.gameObject);
-            Destroy(collision.gameObject);
-        }
-        else {
-            print("Crash");
-		}
-	}
 }
